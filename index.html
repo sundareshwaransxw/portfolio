@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sundareshwaran M | Portfolio</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -14,73 +15,124 @@ body {
   color: #f8fafc;
 }
 
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #020617;
+  padding: 12px;
+  text-align: center;
+  z-index: 1000;
+}
+
+nav a {
+  margin: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+/* HEADER */
 header {
   text-align: center;
-  padding: 60px 20px;
+  padding: 100px 20px 60px;
 }
 
 h1 {
   font-size: 40px;
-  margin-bottom: 10px;
 }
 
-p.tagline {
+.tagline {
   color: #94a3b8;
 }
 
+/* CONTAINER */
 .container {
   max-width: 1000px;
   margin: auto;
   padding: 20px;
 }
 
+/* CARDS */
 .card {
   background: #1e293b;
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  transition: 0.3s;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: 0.5s;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.card.show {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 h2 {
   color: #38bdf8;
 }
 
-ul {
-  padding-left: 20px;
+h2::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  background: #38bdf8;
+  display: block;
+  margin-top: 5px;
 }
 
+/* BUTTON */
+.btn {
+  background: #38bdf8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: black;
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   color: #94a3b8;
 }
-
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HEADER -->
 <header>
   <h1>SUNDARESHWARAN M</h1>
-  <p class="tagline">Senior PL/SQL Developer | Oracle Database Expert | 5+ Years Experience</p>
+  <p class="tagline" id="typing"></p>
+  <br>
+  <a href="SUNDARESHWARAN2026.pdf" download class="btn">Download Resume</a>
 </header>
 
 <div class="container">
 
-<div class="card">
+<!-- ABOUT -->
+<div class="card" id="about">
   <h2>About Me</h2>
   <p>
-  I am a Senior PL/SQL Developer with 5+ years of experience in Oracle database development, data analysis, and production support. I specialize in SQL optimization, PL/SQL programming, and performance tuning for large-scale systems.
+  Senior PL/SQL Developer with 5+ years of experience in Oracle database development, SQL optimization, and production support.
+  Experienced in financial systems including loan management and treasury platforms.
   </p>
 </div>
 
-<div class="card">
+<!-- SKILLS -->
+<div class="card" id="skills">
   <h2>Skills</h2>
   <ul>
     <li>Oracle PL/SQL Development</li>
@@ -92,16 +144,30 @@ footer {
   </ul>
 </div>
 
-<div class="card">
+<!-- EXPERIENCE -->
+<div class="card" id="experience">
   <h2>Experience</h2>
-  <p><strong>Senior PL/SQL Developer - Qualtech Edge</strong></p>
-  <p>Developed and optimized loan management database systems and handled production support.</p>
 
-  <p><strong>PL/SQL Developer - TCS</strong></p>
-  <p>Worked on treasury systems with SQL optimization and ETL processes.</p>
+  <p><strong>Senior PL/SQL Developer – Qualtech Edge</strong></p>
+  <p>Developed loan management systems, APIs, and handled production support.</p>
+
+  <p><strong>PL/SQL Developer – TCS</strong></p>
+  <p>Worked on treasury platforms, SQL tuning, and ETL processes.</p>
+
 </div>
 
-<div class="card">
+<!-- PROJECTS -->
+<div class="card" id="projects">
+  <h2>Projects</h2>
+  <ul>
+    <li><strong>Loan Management System:</strong> Developed PL/SQL modules.</li>
+    <li><strong>Treasury Platform:</strong> Built optimized SQL queries.</li>
+    <li><strong>ETL Migration:</strong> Large-scale data processing.</li>
+  </ul>
+</div>
+
+<!-- CONTACT -->
+<div class="card" id="contact">
   <h2>Contact</h2>
   <p>Email: sundareshwaran1904@gmail.com</p>
   <p>Phone: +91 8825404698</p>
@@ -113,6 +179,35 @@ footer {
 <footer>
   © 2026 Sundareshwaran M
 </footer>
+
+<!-- JS ANIMATIONS -->
+
+<script>
+// Typing effect
+const text = "Senior PL/SQL Developer | Oracle Expert | 5+ Years Experience";
+let i = 0;
+
+function typeEffect() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeEffect, 40);
+  }
+}
+typeEffect();
+
+// Scroll animation
+const cards = document.querySelectorAll('.card');
+
+window.addEventListener('scroll', () => {
+  cards.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if (top < window.innerHeight - 50) {
+      card.classList.add('show');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
