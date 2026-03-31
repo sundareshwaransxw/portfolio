@@ -8,54 +8,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* ===== BODY + ANIMATED BACKGROUND ===== */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #0f172a;
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #020617, #1e3a8a);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
   color: #f8fafc;
 }
 
-/* NAVBAR */
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* ===== NAVBAR ===== */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background: #020617;
+  background: rgba(0,0,0,0.6);
   padding: 12px;
   text-align: center;
-  z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 nav a {
   margin: 15px;
   color: white;
   text-decoration: none;
+  font-weight: 500;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header {
   text-align: center;
-  padding: 100px 20px 60px;
+  padding: 100px 20px;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
 }
 
 h1 {
   font-size: 40px;
+  color: #38bdf8;
+  text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
 }
 
 .tagline {
   color: #94a3b8;
 }
 
-/* CONTAINER */
+/* ===== BUTTON ===== */
+.btn {
+  background: #38bdf8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+/* ===== CONTAINER ===== */
 .container {
   max-width: 1000px;
   margin: auto;
   padding: 20px;
 }
 
-/* CARDS */
+/* ===== CARD ===== */
 .card {
-  background: #1e293b;
+  background: rgba(30,41,59,0.9);
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
@@ -70,6 +104,12 @@ h1 {
   opacity: 1;
 }
 
+.card:hover {
+  box-shadow: 0 0 20px #38bdf8;
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* ===== HEADINGS ===== */
 h2 {
   color: #38bdf8;
 }
@@ -83,27 +123,29 @@ h2::after {
   margin-top: 5px;
 }
 
-/* BUTTON */
-.btn {
-  background: #38bdf8;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: black;
-}
-
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 20px;
   color: #94a3b8;
 }
+
+/* ===== FADE LOAD ===== */
+body {
+  animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav>
   <a href="#about">About</a>
   <a href="#skills">Skills</a>
@@ -127,7 +169,7 @@ footer {
   <h2>About Me</h2>
   <p>
   Senior PL/SQL Developer with 5+ years of experience in Oracle database development, SQL optimization, and production support.
-  Experienced in financial systems including loan management and treasury platforms.
+  Specialized in financial systems including loan management and treasury platforms.
   </p>
 </div>
 
@@ -147,13 +189,11 @@ footer {
 <!-- EXPERIENCE -->
 <div class="card" id="experience">
   <h2>Experience</h2>
-
   <p><strong>Senior PL/SQL Developer – Qualtech Edge</strong></p>
-  <p>Developed loan management systems, APIs, and handled production support.</p>
+  <p>Developed loan management systems and handled production support.</p>
 
   <p><strong>PL/SQL Developer – TCS</strong></p>
-  <p>Worked on treasury platforms, SQL tuning, and ETL processes.</p>
-
+  <p>Worked on treasury systems, SQL tuning, and ETL processes.</p>
 </div>
 
 <!-- PROJECTS -->
@@ -180,13 +220,12 @@ footer {
   © 2026 Sundareshwaran M
 </footer>
 
-<!-- JS ANIMATIONS -->
+<!-- JS -->
 
 <script>
-// Typing effect
+// Typing animation
 const text = "Senior PL/SQL Developer | Oracle Expert | 5+ Years Experience";
 let i = 0;
-
 function typeEffect() {
   if (i < text.length) {
     document.getElementById("typing").innerHTML += text.charAt(i);
@@ -198,15 +237,15 @@ typeEffect();
 
 // Scroll animation
 const cards = document.querySelectorAll('.card');
-
-window.addEventListener('scroll', () => {
-  cards.forEach(card => {
-    const top = card.getBoundingClientRect().top;
-    if (top < window.innerHeight - 50) {
-      card.classList.add('show');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
     }
   });
 });
+cards.forEach(card => observer.observe(card));
+
 </script>
 
 </body>
